@@ -69,15 +69,15 @@ st.markdown("* **投保人信息**")
 
 
 
-# st.logo('../image/logo2.png', link=None, icon_image=None)
-# st.html("""
-        # <style>
-        #     [alt=Logo] {
-        #     height: 7rem;
-        #     }
-        # </style>
-        # """
-        # )
+st.logo('../image/logo2.png', link=None, icon_image=None)
+st.html("""
+        <style>
+            [alt=Logo] {
+            height: 7rem;
+            }
+        </style>
+        """
+        )
 
 
 
