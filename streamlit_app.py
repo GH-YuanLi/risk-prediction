@@ -4,6 +4,7 @@ import pandas as pd
 from time import sleep
 # from stqdm import stqdm
 import random
+import base64
 # from state import provide_state
  
 
@@ -60,6 +61,93 @@ st.set_page_config(layout="wide")
 #     """, width=0, height=0)
 
 
+
+
+# st.logo(image='./img/logo2.png', link=None, icon_image=None)
+# st.html("""
+#         <style>
+#             [alt=Logo] {
+#             height: 7rem;
+#             }
+#         </style>
+#         """
+#         )
+
+
+# sidebar and decorator logo
+# st.markdown(
+#         f"""
+#             <style>
+#                 [data-testid="stDecoration"] {{
+#                     background-image: url("https://amymhaddad.s3.amazonaws.com/morocco-blue.png");
+#                     background-repeat: repeat;
+#                     padding-top: 80px;
+#                     background-position: 20px 20px;
+#                 }}
+                
+#                 [data-testid="stSidebar"] {{
+#                     background-image: url('./img/logo2.png');
+#                     background-repeat: no-repeat;
+#                     padding-top: 80px;
+#                     background-position: top center;
+#                 }}
+#             </style>
+#             """,
+#         unsafe_allow_html=True,
+#     )
+
+
+def get_base64_of_bin_file(png_file: str) -> str:
+    with open(png_file, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+
+@st.cache_resource
+def build_markup_for_logo(png_file: str, type: str) -> str:
+    file_path = get_base64_of_bin_file(png_file)
+
+    if type == "stSidebar":
+        return f"""
+            <style>
+                [data-testid="stSidebar"] {{
+                    background-image: url("data:image/logo2;base64,{file_path}");
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    padding-top: 130px;
+                    background-position: top center;
+                    }}
+            </style>
+            """
+    elif type == "stDecoration":
+        return f"""
+            <style>
+                [data-testid="stDecoration"] {{
+                    background-image: url("data:image/taibao;base64,{file_path}");
+                    background-repeat: repeat;
+                    background-size: contain;
+                    padding-top: 50px;
+                    background-position: top center;
+                }}
+            </style>
+            """
+
+
+st.markdown(
+    build_markup_for_logo("image/logo1.png", "stSidebar"),
+    unsafe_allow_html=True,
+)
+
+
+st.markdown(
+    build_markup_for_logo("image/taibao.png", "stDecoration"),
+    unsafe_allow_html=True,
+)
+
+
+
+
+
+
 st.subheader("肺结节首年患癌风险概率预测", divider=False)
  
 # creates a horizontal line
@@ -92,17 +180,6 @@ def show():
         # # template later.
         # inputs["model"] = st.selectbox("Which model?", ["Top model", "Role model"])
         # st.write("You should probably finish this... ;)")
-
-        
-        st.logo('./image/logo2.png', link=None, icon_image=None)
-        st.html("""
-                <style>
-                    [alt=Logo] {
-                    height: 7rem;
-                    }
-                </style>
-                """
-                )
 
         st.subheader('填写投保人信息', divider = False)
         st.write("---")
