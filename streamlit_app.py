@@ -69,15 +69,6 @@ st.markdown("* **投保人信息**")
 
 
 
-st.logo('./image/logo2.png', link=None, icon_image=None)
-st.html("""
-        <style>
-            [alt=Logo] {
-            height: 7rem;
-            }
-        </style>
-        """
-        )
 
 
 
@@ -101,6 +92,17 @@ def show():
         # # template later.
         # inputs["model"] = st.selectbox("Which model?", ["Top model", "Role model"])
         # st.write("You should probably finish this... ;)")
+
+        
+        st.logo('./image/logo2.png', link=None, icon_image=None)
+        st.html("""
+                <style>
+                    [alt=Logo] {
+                    height: 7rem;
+                    }
+                </style>
+                """
+                )
 
         st.subheader('填写投保人信息', divider = False)
         st.write("---")
