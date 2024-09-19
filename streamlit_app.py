@@ -112,8 +112,8 @@ def build_markup_for_logo(png_file: str, type: str) -> str:
                 [data-testid="stSidebar"] {{
                     background-image: url("data:image/logo2;base64,{file_path}");
                     background-repeat: no-repeat;
-                    background-size: 100%;
-                    padding-top: 130px;
+                    background-size: 80%;
+                    padding-top: 110px;
                     background-position: top center;
                     }}
             </style>
@@ -219,7 +219,7 @@ def show():
         # input 5
         # st.write("肺结节发生位置")
         # ft5 = st.radio("Select an operation to perform:", ("上肺", "下肺", "右肺中叶"))
-        inputs['nodule_position'] = st.selectbox('肺结节发生位置', ("", "上肺", "下肺", "右肺中叶"))
+        inputs['nodule_position'] = st.selectbox('肺结节发生位置', ("", "上叶", "中叶", "下叶"))
 
         # input 6
         # st.write("结节是否存在恶性指征")
@@ -286,7 +286,7 @@ def calculate(inputs = inputs):
     # assert inputs['age'] != None and inputs['age'] >= 18 and inputs['age'] <= 80, st.error('请输入有效的患者年龄！')
     # assert inputs['nodule_size'] != None and inputs['nodule_size'] > 0 and inputs['nodule_size'] <= 30, st.error('请输入有效的结节大小！')
     assert inputs['nodule_type'] in ['实性','纯磨玻璃','部分实性'], st.error('请选择有效的结节形态！')
-    assert inputs['nodule_position'] in ['上肺','下肺','右肺中叶'], st.error('请选择有效的结节发生位置！')
+    assert inputs['nodule_position'] in ['上叶','下叶','中叶'], st.error('请选择有效的结节发生位置！')
 
     
     if inputs['nodule_unit'] == 'mm':
@@ -305,12 +305,12 @@ def calculate(inputs = inputs):
     else:        
         type_value = 0.377
 
-    if inputs['nodule_position'] == '上肺':
+    if inputs['nodule_position'] == '上叶':
         position_value = 0.6581
-    elif inputs['nodule_position'] == '下肺':
+    elif inputs['nodule_position'] == '下叶':
         position_value = 0
-    else:        
-        position_value = 0
+    elif inputs['nodule_position'] == '中叶':        
+        position_value = -0.132
 
     # if ft2 == "Add":
     #     ans = num1 + num2
